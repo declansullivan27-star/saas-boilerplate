@@ -31,64 +31,79 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-soft: oklch(0.82 0.13 88 / 0.25);
+  --animate-float: float 7s ease-in-out infinite;
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
+  --font-sans: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
 }
 
+/*
+ * AutoFire — premium dark + gold theme.
+ * The whole site is dark by default; gold is the single accent reserved
+ * for CTAs, highlights and trust signals.
+ */
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.75rem;
+
+  --background: oklch(0.15 0.006 80);
+  --foreground: oklch(0.96 0.01 85);
+  --card: oklch(0.19 0.008 80);
+  --card-foreground: oklch(0.96 0.01 85);
+  --popover: oklch(0.18 0.008 80);
+  --popover-foreground: oklch(0.96 0.01 85);
+  --primary: oklch(0.82 0.13 88);
+  --primary-foreground: oklch(0.18 0.02 80);
+  --secondary: oklch(0.24 0.01 80);
+  --secondary-foreground: oklch(0.96 0.01 85);
+  --muted: oklch(0.24 0.01 80);
+  --muted-foreground: oklch(0.74 0.02 85);
+  --accent: oklch(0.27 0.02 85);
+  --accent-foreground: oklch(0.96 0.01 85);
+  --destructive: oklch(0.62 0.21 25);
+  --border: oklch(0.85 0.05 85 / 12%);
+  --input: oklch(0.85 0.05 85 / 16%);
+  --ring: oklch(0.82 0.13 88 / 55%);
+
+  --gold: oklch(0.82 0.13 88);
+  --gold-bright: oklch(0.91 0.11 92);
+  --gold-deep: oklch(0.66 0.12 74);
+
+  --chart-1: oklch(0.82 0.13 88);
+  --chart-2: oklch(0.74 0.12 80);
+  --chart-3: oklch(0.66 0.12 74);
+  --chart-4: oklch(0.58 0.1 70);
+  --chart-5: oklch(0.5 0.08 66);
+
+  color-scheme: dark;
 }
 
+/* Keep an explicit dark class identical so Clerk/dashboard stay on-brand. */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --background: oklch(0.15 0.006 80);
+  --foreground: oklch(0.96 0.01 85);
+  --card: oklch(0.19 0.008 80);
+  --card-foreground: oklch(0.96 0.01 85);
+  --popover: oklch(0.18 0.008 80);
+  --popover-foreground: oklch(0.96 0.01 85);
+  --primary: oklch(0.82 0.13 88);
+  --primary-foreground: oklch(0.18 0.02 80);
+  --secondary: oklch(0.24 0.01 80);
+  --secondary-foreground: oklch(0.96 0.01 85);
+  --muted: oklch(0.24 0.01 80);
+  --muted-foreground: oklch(0.74 0.02 85);
+  --accent: oklch(0.27 0.02 85);
+  --accent-foreground: oklch(0.96 0.01 85);
+  --destructive: oklch(0.62 0.21 25);
+  --border: oklch(0.85 0.05 85 / 12%);
+  --input: oklch(0.85 0.05 85 / 16%);
+  --ring: oklch(0.82 0.13 88 / 55%);
 }
 
 @layer base {
@@ -97,5 +112,70 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+  }
+}
+
+/*
+ * Custom utilities registered the Tailwind v4 way (@utility) so they are
+ * first-class: they support variants (hover:, etc.) and are recognised by
+ * tooling/linting. The `gold-soft` colour + `animate-float` are exposed as
+ * theme tokens above, which auto-generate border-/ring-/bg-gold-soft etc.
+ */
+
+/* Gold gradient text used for emphasised words in headings. */
+@utility text-gradient-gold {
+  background-image: linear-gradient(
+    100deg,
+    var(--gold-deep) 0%,
+    var(--gold-bright) 45%,
+    var(--gold) 70%,
+    var(--gold-bright) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+/* Soft animated aurora glow behind the hero. */
+@utility bg-aurora {
+  background:
+    radial-gradient(40% 55% at 20% 18%, oklch(0.82 0.13 88 / 0.18), transparent 70%),
+    radial-gradient(45% 50% at 82% 8%, oklch(0.66 0.12 74 / 0.16), transparent 70%),
+    radial-gradient(60% 60% at 50% 100%, oklch(0.82 0.13 88 / 0.1), transparent 70%);
+  background-size: 200% 200%;
+  animation: aurora 18s ease-in-out infinite;
+}
+
+/* Frosted-glass surface for the sticky header. */
+@utility glass {
+  background: oklch(0.22 0.01 80 / 0.55);
+  backdrop-filter: blur(12px);
+}
+
+@keyframes shimmer {
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes aurora {
+  0%,
+  100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

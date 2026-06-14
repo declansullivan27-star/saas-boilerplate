@@ -19,7 +19,7 @@ const locales = [
 // FIXME: Customize this configuration for your product
 /** Centralized application configuration */
 export const AppConfig = {
-  name: 'SaaS Template',
+  name: 'AutoFire',
   i18n: {
     locales,
     defaultLocale: 'en',
