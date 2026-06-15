@@ -2,11 +2,11 @@ import type { Metadata, Viewport } from 'next';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { DemoBadge } from '@/components/DemoBadge';
 import { routing } from '@/libs/I18nRouting';
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://autofire.agency'),
   icons: [
     {
       rel: 'apple-touch-icon',
@@ -57,8 +57,6 @@ export default async function RootLayout(props: {
       <body>
         <NextIntlClientProvider>
           {props.children}
-
-          <DemoBadge />
         </NextIntlClientProvider>
       </body>
     </html>
