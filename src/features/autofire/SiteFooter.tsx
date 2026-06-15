@@ -1,4 +1,5 @@
 import { AtSign, Flame, Mail } from 'lucide-react';
+import { Link } from '@/libs/I18nNavigation';
 import { navLinks, site } from './site';
 
 export const SiteFooter = () => (
@@ -90,12 +91,37 @@ export const SiteFooter = () => (
         text-muted-foreground
       "
       >
-        ©
-        {' '}
-        {new Date().getFullYear()}
-        {' '}
-        {site.name}
-        . All rights reserved.
+        <div className="
+          flex flex-wrap items-center justify-center gap-x-5 gap-y-2
+        "
+        >
+          <span>
+            ©
+            {' '}
+            {new Date().getFullYear()}
+            {' '}
+            {site.name}
+            . All rights reserved.
+          </span>
+          <Link
+            className="
+              transition-colors
+              hover:text-foreground
+            "
+            href="/privacy"
+          >
+            Privacy
+          </Link>
+          <Link
+            className="
+              transition-colors
+              hover:text-foreground
+            "
+            href="/terms"
+          >
+            Terms
+          </Link>
+        </div>
       </div>
     </div>
   </footer>

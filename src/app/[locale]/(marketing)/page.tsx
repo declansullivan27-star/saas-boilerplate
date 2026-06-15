@@ -9,6 +9,7 @@ import { HeroSection } from '@/features/autofire/HeroSection';
 import { HowItWorks } from '@/features/autofire/HowItWorks';
 import { PainSection } from '@/features/autofire/PainSection';
 import { PricingSection } from '@/features/autofire/PricingSection';
+import { ResultsSection } from '@/features/autofire/ResultsSection';
 import { ServicesSection } from '@/features/autofire/ServicesSection';
 import { site } from '@/features/autofire/site';
 import { SiteFooter } from '@/features/autofire/SiteFooter';
@@ -43,6 +44,7 @@ export default async function Index(props: IndexProps) {
         <ServicesSection />
         <HowItWorks />
         <DemoSection />
+        <ResultsSection />
         <GuaranteeSection />
         <FounderSection />
         <PricingSection />
