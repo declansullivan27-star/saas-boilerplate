@@ -7,7 +7,11 @@ export const site = {
   domain: 'autofire.agency',
   tagline: 'AI automations that win back your time.',
 
+  // The on-site booking page (branded). It embeds `bookingUrl` below.
+  bookingPath: '/book',
+
   // TODO: replace with your real Cal.com / Calendly booking link.
+  // This is what gets embedded on the /book page.
   bookingUrl: 'https://cal.com/autofire/audit',
 
   // TODO: replace with your real social + contact details.

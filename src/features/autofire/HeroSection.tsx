@@ -66,9 +66,7 @@ export const HeroSection = () => (
         "
         >
           <a
-            href={site.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={site.bookingPath}
             className="
               group inline-flex h-12 w-full items-center justify-center gap-2
               rounded-xl bg-primary px-7 text-base font-semibold

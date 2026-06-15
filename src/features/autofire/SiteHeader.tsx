@@ -70,9 +70,7 @@ export const SiteHeader = () => {
         "
         >
           <a
-            href={site.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={site.bookingPath}
             className="
               inline-flex h-10 items-center rounded-lg bg-primary px-5 text-sm
               font-semibold text-primary-foreground shadow-[0_0_24px_-6px]
@@ -117,9 +115,7 @@ export const SiteHeader = () => {
             ))}
             <li className="mt-2">
               <a
-                href={site.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={site.bookingPath}
                 className="
                   block rounded-lg bg-primary p-3 text-center font-semibold
                   text-primary-foreground

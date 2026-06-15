@@ -103,9 +103,7 @@ export const PricingSection = () => (
                 ))}
               </ul>
               <a
-                href={site.bookingUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={site.bookingPath}
                 className={`
                   mt-8 inline-flex h-11 items-center justify-center rounded-xl
                   px-6 text-sm font-semibold transition-transform

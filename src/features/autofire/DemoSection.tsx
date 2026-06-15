@@ -43,9 +43,7 @@ export const DemoSection = () => (
           business.
         </p>
         <a
-          href={site.bookingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={site.bookingPath}
           className="
             mt-7 inline-flex h-11 items-center rounded-xl bg-primary px-6
             text-sm font-semibold text-primary-foreground shadow-[0_0_28px_-8px]

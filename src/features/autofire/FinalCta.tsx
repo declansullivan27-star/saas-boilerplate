@@ -33,9 +33,7 @@ export const FinalCta = () => (
             business — and what it's worth to you. No pressure, no jargon.
           </p>
           <a
-            href={site.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={site.bookingPath}
             className="
               group mt-9 inline-flex h-13 items-center justify-center gap-2
               rounded-xl bg-primary px-8 text-base font-semibold
