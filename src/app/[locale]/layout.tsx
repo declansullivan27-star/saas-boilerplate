@@ -6,6 +6,7 @@ import { routing } from '@/libs/I18nRouting';
 import '@/styles/global.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'https://autofire.agency'),
   icons: [
     {
       rel: 'apple-touch-icon',
