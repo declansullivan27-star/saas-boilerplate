@@ -1,7 +1,9 @@
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import * as z from 'zod';
+import { streamCoachReplyViaApi } from '@/features/chess/anthropicApi';
 import { streamCoachReply } from '@/features/chess/claudeCli';
+import { Env } from '@/libs/Env';
 
 export const runtime = 'nodejs';
 
@@ -43,15 +45,14 @@ Position under discussion:
 - Move classification: ${position.classification ?? 'not classified'}
 ${playerName ? `- The player asking questions is playing as: ${playerName}` : ''}
 
-Style: talk like a strong human coach, not a textbook. Be concrete and specific to this position. Keep answers focused — a few short paragraphs at most unless asked to go deeper. When relevant, reference the actual centipawn swing and the engine's suggested move rather than vague praise or criticism.
-
-You will be given the conversation so far, ending with the latest user message. Respond only to that latest message — don't re-answer earlier turns.`;
+Style: talk like a strong human coach, not a textbook. Be concrete and specific to this position. Keep answers focused — a few short paragraphs at most unless asked to go deeper. When relevant, reference the actual centipawn swing and the engine's suggested move rather than vague praise or criticism.`;
 }
 
 function buildTranscript(messages: z.infer<typeof bodySchema>['messages']): string {
-  return messages
+  const transcript = messages
     .map(message => `${message.role === 'user' ? 'User' : 'Coach'}: ${message.content}`)
     .join('\n\n');
+  return `${transcript}\n\nRespond only to the latest User message above — don't re-answer earlier turns.`;
 }
 
 export async function POST(request: Request) {
@@ -67,11 +68,13 @@ export async function POST(request: Request) {
   }
 
   const { messages, position, playerName } = parsed.data;
+  const systemPrompt = buildSystemPrompt(position, playerName);
 
-  const body = streamCoachReply({
-    systemPrompt: buildSystemPrompt(position, playerName),
-    transcript: buildTranscript(messages),
-  });
+  // Cloud/CI deployments set ANTHROPIC_API_KEY (pennies per question, works anywhere).
+  // Without one — e.g. local dev — fall back to the free Claude Code CLI subscription.
+  const body = Env.ANTHROPIC_API_KEY
+    ? streamCoachReplyViaApi({ apiKey: Env.ANTHROPIC_API_KEY, systemPrompt, messages })
+    : streamCoachReply({ systemPrompt, transcript: buildTranscript(messages) });
 
   return new Response(body, {
     headers: {
