@@ -1,8 +1,9 @@
-import Anthropic from '@anthropic-ai/sdk';
 import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 import * as z from 'zod';
-import { Env } from '@/libs/Env';
+import { streamCoachReply } from '@/features/chess/claudeCli';
+
+export const runtime = 'nodejs';
 
 const bodySchema = z.object({
   messages: z.array(z.object({
@@ -42,20 +43,21 @@ Position under discussion:
 - Move classification: ${position.classification ?? 'not classified'}
 ${playerName ? `- The player asking questions is playing as: ${playerName}` : ''}
 
-Style: talk like a strong human coach, not a textbook. Be concrete and specific to this position. Keep answers focused — a few short paragraphs at most unless asked to go deeper. When relevant, reference the actual centipawn swing and the engine's suggested move rather than vague praise or criticism.`;
+Style: talk like a strong human coach, not a textbook. Be concrete and specific to this position. Keep answers focused — a few short paragraphs at most unless asked to go deeper. When relevant, reference the actual centipawn swing and the engine's suggested move rather than vague praise or criticism.
+
+You will be given the conversation so far, ending with the latest user message. Respond only to that latest message — don't re-answer earlier turns.`;
+}
+
+function buildTranscript(messages: z.infer<typeof bodySchema>['messages']): string {
+  return messages
+    .map(message => `${message.role === 'user' ? 'User' : 'Coach'}: ${message.content}`)
+    .join('\n\n');
 }
 
 export async function POST(request: Request) {
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
-
-  if (!Env.ANTHROPIC_API_KEY) {
-    return NextResponse.json(
-      { error: 'The AI coach is not configured yet. Set ANTHROPIC_API_KEY to enable it.' },
-      { status: 503 },
-    );
   }
 
   const json = await request.json().catch(() => null);
@@ -65,31 +67,10 @@ export async function POST(request: Request) {
   }
 
   const { messages, position, playerName } = parsed.data;
-  const anthropic = new Anthropic({ apiKey: Env.ANTHROPIC_API_KEY });
 
-  const stream = anthropic.messages.stream({
-    model: 'claude-sonnet-5',
-    max_tokens: 1024,
-    system: buildSystemPrompt(position, playerName),
-    messages: messages.map(message => ({ role: message.role, content: message.content })),
-  });
-
-  const encoder = new TextEncoder();
-  const body = new ReadableStream<Uint8Array>({
-    async start(controller) {
-      try {
-        for await (const event of stream) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            controller.enqueue(encoder.encode(event.delta.text));
-          }
-        }
-      } catch (error) {
-        const message = error instanceof Error ? error.message : 'The AI coach ran into an error.';
-        controller.enqueue(encoder.encode(`\n\n[Coach error: ${message}]`));
-      } finally {
-        controller.close();
-      }
-    },
+  const body = streamCoachReply({
+    systemPrompt: buildSystemPrompt(position, playerName),
+    transcript: buildTranscript(messages),
   });
 
   return new Response(body, {
