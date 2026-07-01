@@ -99,3 +99,71 @@
     @apply bg-background text-foreground antialiased;
   }
 }
+
+/* Chess Guide Buddy: matrix-styled sub-theme, scoped so the rest of the app is unaffected. */
+.chess-matrix {
+  --matrix-bg: oklch(0.12 0.01 150);
+  --matrix-panel: oklch(0.16 0.015 150);
+  --matrix-border: oklch(0.32 0.04 150 / 60%);
+  --matrix-green: oklch(0.82 0.24 149);
+  --matrix-green-dim: oklch(0.55 0.16 149);
+  --matrix-amber: oklch(0.78 0.17 70);
+  --matrix-red: oklch(0.63 0.22 25);
+  --matrix-text: oklch(0.9 0.05 150);
+  background-color: var(--matrix-bg);
+  color: var(--matrix-text);
+  font-family: var(--font-mono, ui-monospace, monospace);
+}
+
+.chess-matrix .matrix-panel {
+  background-color: var(--matrix-panel);
+  border: 1px solid var(--matrix-border);
+}
+
+.chess-matrix .matrix-glow-text {
+  color: var(--matrix-green);
+  text-shadow:
+    0 0 6px color-mix(in oklch, var(--matrix-green) 70%, transparent),
+    0 0 18px color-mix(in oklch, var(--matrix-green) 35%, transparent);
+}
+
+.chess-matrix .matrix-glow-border {
+  border-color: var(--matrix-green-dim);
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--matrix-green) 30%, transparent),
+    0 0 20px color-mix(in oklch, var(--matrix-green) 15%, transparent);
+}
+
+@keyframes matrix-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.85;
+  }
+  94% {
+    opacity: 1;
+  }
+}
+
+.chess-matrix .matrix-flicker {
+  animation: matrix-flicker 4s infinite;
+}
+
+@keyframes matrix-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 6px color-mix(in oklch, var(--matrix-green) 45%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 18px color-mix(in oklch, var(--matrix-green) 75%, transparent);
+  }
+}
+
+.chess-matrix .matrix-pulse {
+  animation: matrix-pulse 2.2s ease-in-out infinite;
+}

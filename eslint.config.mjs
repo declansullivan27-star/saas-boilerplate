@@ -31,6 +31,7 @@ export default antfu(
     ignores: [
       '.alchemy/**/*',
       'migrations/**/*',
+      'public/stockfish/**/*',
     ],
   },
   // --- Tailwind CSS Rules ---
@@ -53,6 +54,16 @@ export default antfu(
   },
   // --- Storybook Rules ---
   ...storybook.configs['flat/recommended'],
+  // --- Chess Guide Buddy: hand-authored "matrix" theme classes aren't Tailwind utilities ---
+  {
+    files: [
+      'src/features/chess/**/*.{ts,tsx}',
+      'src/app/**/dashboard/chess/**/*.tsx',
+    ],
+    rules: {
+      'better-tailwindcss/no-unknown-classes': 'off',
+    },
+  },
   // --- Custom Rule Overrides ---
   {
     rules: {

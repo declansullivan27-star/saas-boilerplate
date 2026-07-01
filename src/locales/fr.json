@@ -100,6 +100,7 @@
     "meta_title": "Tableau de bord du SaaS Template",
     "meta_description": "Un template gratuit et open-source de landing page pour votre entreprise SaaS, construit avec Next.js, TypeScript, Shadcn UI et Tailwind CSS.",
     "home": "Accueil",
+    "chess": "Échecs",
     "members": "Membres",
     "settings": "Réglages"
   },
@@ -110,6 +111,10 @@
     "message_state_description": "Personnalisez cette page en modifiant le fichier dans <code>dashboard/page.tsx</code>.",
     "message_state_alternative": "Besoin de fonctionnalités avancées ? Next.js 16 & React 19, Multi-tenancy & Équipes, Rôles & Permissions, Shadcn UI,\nTypesafety de bout en bout avec oRPC, Paiement Stripe, Mode clair / sombre. Essayez <url></url>.",
     "max_message": "Ou, besoin d'une stack d'auth auto-hébergée (Better Auth) ? Essayez <url></url>."
+  },
+  "ChessGuidePage": {
+    "meta_title": "Chess Guide Buddy",
+    "meta_description": "Importez vos parties, analysez-les avec Stockfish, et discutez-en avec un coach IA basé sur les évaluations réelles du moteur."
   },
   "UserProfilePage": {
     "title_bar": "Profil utilisateur",

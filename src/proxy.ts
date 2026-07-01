@@ -11,7 +11,10 @@ const isProtectedRoute = createRouteMatcher([
   '/:locale/dashboard(.*)',
   '/onboarding(.*)',
   '/:locale/onboarding(.*)',
+  '/api/chess(.*)',
 ]);
+
+const isApiRoute = createRouteMatcher(['/api(.*)']);
 
 const isAuthPage = createRouteMatcher([
   '/sign-in(.*)',
@@ -59,8 +62,17 @@ export default async function proxy(
         return NextResponse.redirect(orgSelection);
       }
 
+      // API routes don't have locale segments, so they must skip locale rewriting.
+      if (isApiRoute(req)) {
+        return NextResponse.next();
+      }
+
       return handleI18nRouting(req);
     })(request, event);
+  }
+
+  if (isApiRoute(request)) {
+    return NextResponse.next();
   }
 
   return handleI18nRouting(request);

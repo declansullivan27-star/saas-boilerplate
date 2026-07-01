@@ -100,6 +100,7 @@
     "meta_title": "SaaS Template Dashboard",
     "meta_description": "A free and open-source landing page template for your SaaS business, built with Next.js, TypeScript, Shadcn UI, and Tailwind CSS.",
     "home": "Home",
+    "chess": "Chess",
     "members": "Members",
     "settings": "Settings"
   },
@@ -110,6 +111,10 @@
     "message_state_description": "Customize this page by editing the file at <code>dashboard/page.tsx</code>.",
     "message_state_alternative": "Need advanced features? Next.js 16 & React 19, Multi-tenancy & Teams, Roles & Permissions, Shadcn UI,\nEnd-to-End Typesafety with oRPC, Stripe Payment, Light / Dark mode. Try <url></url>.",
     "max_message": "Or, need a Self-hosted auth stack (Better Auth)? Try <url></url>."
+  },
+  "ChessGuidePage": {
+    "meta_title": "Chess Guide Buddy",
+    "meta_description": "Load your games, review them with Stockfish, and talk it through with an AI coach grounded in the engine's real evaluations."
   },
   "UserProfilePage": {
     "title_bar": "User Profile",
