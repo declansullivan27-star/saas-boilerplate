@@ -1,0 +1,33 @@
+# fly launch --no-deploy, then: fly volumes create moneybot_data --size 1
+app = "moneybot"
+primary_region = "ord"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  PORT = "8080"
+  MONEYBOT_DB = "/data/moneybot.db"
+  MONEYBOT_MEDIA_DIR = "/data/media"
+
+[[mounts]]
+  source = "moneybot_data"
+  destination = "/data"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = false   # it has to be awake when he texts
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    path = "/healthz"
+    timeout = "5s"
+
+# Nags: one call a day at 13:00 UTC (8am CT). Fly has no built-in cron, so
+# either run this from an external scheduler or use a scheduled machine:
+#   fly machine run . --schedule daily --command \
+#     "curl -fsS -H 'X-Cron-Token: $MONEYBOT_CRON_TOKEN' https://moneybot.fly.dev/cron/nag"

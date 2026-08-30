@@ -1,0 +1,6 @@
+# Daily nag tick. The bot decides what (if anything) is actually due — it is
+# safe to call every day, and safe to call twice: each nag is sent once.
+0 13 * * *  curl -fsS -H "X-Cron-Token: $MONEYBOT_CRON_TOKEN" https://moneybot.example.com/cron/nag
+
+# Or, without HTTP, straight from the machine holding the SQLite file:
+# 0 13 * * *  cd /app && python -m moneybot.cli nag --channel sms

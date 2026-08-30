@@ -1,0 +1,9 @@
+# Runtime
+flask>=3.0
+requests>=2.31
+anthropic>=1.0        # receipt extraction and deal screening
+pypdf>=4.0            # reading forwarded contract PDFs
+gunicorn>=21.2        # production WSGI server
+
+# Development
+pytest>=8.0
