@@ -1,7 +1,126 @@
 # moneybot
 
-An SMS bot that answers one question — **"what can I spend right now?"** — and
-never lets a deduction or a deadline slip.
+Two ways into the same idea: **an app he opens on his phone** (`app/`), and an
+**SMS bot** that texts him (`moneybot/`). The app is the one he'll actually use.
+
+---
+
+# 1. The app — "Safe to Spend"
+
+`app/index.html` — one file, no build step, no account, no signup.
+
+It answers one question, in one number, on one screen: **what can I spend right
+now?** Everything else on the page exists to keep that number honest.
+
+```
+              SAFE TO SPEND
+              $3,208.32
+       $106.94 a day for the next 30 days
+      after $1,285 of bills in the next 30 days
+
+   SWING        SAVINGS         TAX
+   $1,070       $1,875        $4,625
+ yours, no      put away      not yours
+  questions
+
+ ● Q3 tax due Sep 15 — 16 days
+   $4,625 set aside. Estimate — confirm with your EA.
+
+ [  MONEY IN  ]  [  MONEY OUT  ]
+```
+
+## Why it looks like a scoreboard
+
+Because every other money app looks like a bank. He reads a stat line without
+thinking about it, so the number is enormous and monospaced, the buckets are a
+box score, and the labels are tracked-out caps. Nothing on the home screen is
+smaller than his thumb.
+
+## How money moves through it
+
+Every payment is carved up **the moment it lands**, before he sees it:
+
+| Bucket | Default | What it is |
+|---|---|---|
+| Tax | 37% | Federal + self-employment + state. Shown, never spendable. |
+| Savings | 15% | Put away. |
+| Swing | 10% | His, for anything. The app reports it and never comments on it. |
+| Spendable | the rest | The headline number. |
+
+Spendable is the remainder bucket, so the four parts always sum to the payment
+exactly — no rounding drift, ever, at any amount.
+
+**Bills come off a rolling 30 days, not the calendar month.** On the 30th, next
+month's rent is two days away. A calendar-month view would call that money
+spendable; this doesn't.
+
+## Entering money
+
+Three ways in, fastest first:
+
+1. **Keypad.** Tap `Money in` / `Money out`, punch the amount. Cents-first, like
+   an ATM — he never types a decimal point. The split previews live as he taps:
+   *"Splits into $3,700 tax · $1,500 savings · $1,000 swing · $3,800 yours."*
+2. **Type it.** `got 10000 from the collective in KS`, `spent 42 on gas`,
+   `rent 1200 monthly`. Parsed into the form for one tap of confirmation —
+   a parse never commits money on its own.
+3. **Chips.** Category is guessed from what he typed and pre-selected; the
+   write-off toggle flips itself to match, and he can overrule both.
+
+## Tax
+
+Quarterly periods with the real IRS deadlines, weekend deadlines shifted to
+Monday. Each payment is tagged **KS or MO at intake**, which is what makes a
+two-state return survivable — the tax tab shows the split as a bar, with the
+IRS Direct Pay link and the right state link underneath.
+
+`Tax payment` as a category draws down the reserve instead of his spending
+money, so paying the IRS never looks like it made him poorer.
+
+**The app never calculates what he owes.** It reports what he set aside, and
+says `Estimate — confirm with your EA` wherever a tax figure appears. There is
+no advice in it anywhere.
+
+## April
+
+Three CSVs, saved straight to his phone: a summary (gross income, write-offs,
+income by state), every expense, every payment. Chips say `Car & gas`; the CSV
+says `Car and truck expenses`, because the EA needs the real Schedule C line.
+
+## Where the data lives
+
+- **This device, instantly** — `localStorage`, every change, no network needed.
+- **The artifact itself, a couple of seconds later** — the page publishes
+  `data/ledger.json` back to itself, so the ledger survives a cleared browser
+  and shows up on his laptop. The page never republishes itself, so this view
+  never reloads out from under him mid-entry.
+- Whichever copy was written last wins on load, so a phone that was offline
+  never loses to a stale sync.
+- `Back up everything to a file` in Setup, for the paranoid case.
+
+## Run it
+
+```bash
+cd app && python3 -m http.server 8000    # then open localhost:8000
+```
+
+Published as an artifact it picks up saving and CSV export; opened as a plain
+file it still works, on this device only.
+
+On his phone: open the link, **Share → Add to Home Screen**. It opens like any
+other app after that.
+
+## What it will never do
+
+Give tax advice. Move money. Recommend or evaluate an investment. Show a figure
+it can't derive from what he entered.
+
+---
+
+# 2. The SMS bot
+
+`moneybot/` — the same rules as a Python service he texts. The app can't push a
+notification; this can. Worth keeping for the four quarterly nags alone.
 
 He texts it what he has, what he gets, and what he spends. It texts back what's
 his and what isn't.

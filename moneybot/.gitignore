@@ -6,3 +6,4 @@ __pycache__/
 *.db-shm
 media/
 .env
+_preview.html
