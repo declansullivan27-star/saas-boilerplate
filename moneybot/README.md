@@ -29,6 +29,42 @@ now?** Everything else on the page exists to keep that number honest.
  [  MONEY IN  ]  [  MONEY OUT  ]
 ```
 
+## It asks before it assumes
+
+The first thing it does is interview him, because every default in a money app
+is a guess about someone nobody has met. Seven questions, one tap each:
+
+| It asks | Because it changes |
+|---|---|
+| Kansas, Missouri, or both | Which state each payment is tagged to, and which payment link he gets |
+| Roughly what he'll make this year | **The tax hold** — see below |
+| What's in his account today, and whether tax came out of it already | Untaxed cash gets split like any other payment; a paycheck or a gift goes straight to spendable |
+| What leaves every month | Seeds the bills, so day-one spendable is real |
+| How big swing and savings should be | His call, not mine |
+| Whether he has an accountant | If not, every tax line reads *"you need an accountant before April"* instead of *"confirm with your EA"* |
+
+**The tax hold is the one that matters.** A flat 37% is roughly right at $150k
+and absurd at $8k. Set-aside by band — self-employment tax plus a federal and
+KS/MO estimate at that income, rounded up so the error runs the safe way:
+
+| Expected 1099 income | Actual effective rate | What it holds |
+|---|---|---|
+| Under $5,000 | ~14% | 18% |
+| $5,000 – $25,000 | 14–18% | 22% |
+| $25,000 – $75,000 | 20–24% | 28% |
+| $75,000 – $150,000 | 25–28% | 32% |
+| Over $150,000 | 28–31% | 36% |
+| No idea yet | — | 32% |
+
+At $120k the honest number is about 28%, so the old flat 37% was quietly
+locking away an extra **$11,000 a year** and labelling it "not yours."
+
+The screen where he picks says exactly what it is: *"a set-aside rule, not a
+calculation of what you owe."* The app still never calculates his tax.
+
+Skippable, re-runnable from Setup, and never shown to a ledger that already has
+money in it.
+
 ## Why it looks like a scoreboard
 
 Because every other money app looks like a bank. He reads a stat line without
